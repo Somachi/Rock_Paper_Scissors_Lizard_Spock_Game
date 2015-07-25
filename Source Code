@@ -1,0 +1,120 @@
+# interactive application of 'Rock, Paper, Scissors, Lizard, Spock' game(python)
+#http://www.codeskulptor.org/#user40_3o1KjXmxTWN7Pau.py
+
+import simplegui
+
+import math
+import random
+
+winner = "play"
+computerCH="computer is waiting....."
+
+# create frame
+frame = simplegui.create_frame("Converter", 400, 200)
+
+def number_to_name(num):
+    if num == 0:
+        return 'rock'
+    elif num == 1:
+        return 'Spock'
+    elif num == 2:
+        return 'paper'
+    elif num == 3:
+        return 'lizard'
+    else:
+        return 'scissors'
+
+
+def name_to_number(name):
+   
+    if name == 'rock':
+        return 0
+    elif name == 'Spock':
+        return 1
+    elif name == 'paper':
+        return 2
+    elif name == 'lizard':
+        return 3
+    else:
+        return 4
+
+#funtion to press/take input from button
+def rock():
+    rpsls("rock")
+    return " "
+
+def Spock():    
+    rpsls("Spock")
+    return" "
+def Paper():
+    rpsls("paper")
+    return" "
+def lizard():
+    rpsls("lizard")
+    return" "
+def scissors():
+    rpsls("scissors")
+    return" "   
+
+    
+# function to call the canvas 
+def rpsls(guess):
+    global computerCH
+    # convert name to player_number using name_to_number
+    
+    player_number = name_to_number(guess)
+    
+    # compute random guess for comp_number using random.randrange()
+    
+    comp_number = random.randrange(0,5)
+    
+    # convert comp_number to name using number_to_name
+    
+    computer_guess = number_to_name(comp_number) 
+    computerCH= "computer chosed" ": " + computer_guess
+    # compute difference of player_number and comp_number modulo five
+    
+    result = (player_number - comp_number) % 5
+    
+    
+
+# use if/elif/else to determine winner    
+    global winner
+    if result == 1 or result == 2:
+        
+        winner = 'Player wins!'
+    elif result == 3 or result == 4:
+        
+        winner = 'Computer wins!'
+    else:
+        winner = 'Player and Computer tie!'
+
+        
+# print results
+
+    print
+    print 'Player chooses', guess
+    print 'Computer chooses', computer_guess
+    print winner
+    
+            
+    
+# define draw handler
+def draw(canvas):
+    #function convert(diff) calls another function with respect
+    # to the value of the diff that prints the result
+    #of who wins , computer or user or a tie 
+    canvas.draw_text(winner, [60, 110], 24, "White")       
+    canvas.draw_text(computerCH,[60,150],24, "Red")
+    
+# register event handlers
+frame.set_draw_handler(draw)
+frame.add_button("rock", rock, 100)
+frame.add_button("Spock", Spock, 100)
+frame.add_button("paper", Paper, 100)
+frame.add_button("lizard", lizard, 100)
+frame.add_button("scissors",scissors, 100)
+
+# start frame
+frame.start()
+
